@@ -158,6 +158,21 @@ extern (C) void _d_delclass(Object* p)
     }
 }
 
+/**
+ *
+ */
+extern (C) void _d_delstruct(void** p, StructInfo inf)
+{
+	if (*p)
+	{
+		debug(PRINTF) printf("_d_delstruct(%p)\n", *p);
+
+		rt_finalize_struct(*p, inf);
+		GC.free(*p);
+		*p = null;
+	}
+}
+
 /** dummy class used to lock for shared array appending */
 private class ArrayAllocLengthLock
 {}
